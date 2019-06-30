@@ -2,12 +2,12 @@
 
 namespace StrixTask\View\Presenter\Factory;
 
-use Interop\Container\ContainerInterface;
 use StrixTask\Model\Helper\Console;
+use StrixTask\View\Presenter\Presenter;
+use Interop\Container\ContainerInterface;
 use StrixTask\Model\Service\StrixService;
 use StrixTask\View\Presenter\Index\HttpPresenter;
 use StrixTask\View\Presenter\Index\ConsolePresenter;
-use StrixTask\View\Presenter\Presenter;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 class AbstractPresenterFactory implements AbstractFactoryInterface
@@ -48,8 +48,8 @@ class AbstractPresenterFactory implements AbstractFactoryInterface
             $presenterArgs[] = $container->get(Console::class);
         }
 
-        $reflection = new \ReflectionClass($requestedName);
-        return $reflection->newInstanceArgs($presenterArgs);
+        return (new \ReflectionClass($requestedName))
+            ->newInstanceArgs($presenterArgs);
     }
 
 }
